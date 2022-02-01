@@ -1,0 +1,52 @@
+<h2>Please specifiy a shape to draw.</h2>
+<div>
+  <ul>
+    <li>Draw a square with a side length of 200</li>
+    <li>Draw a parallelogram with a width of 400 and a height of 250</li>
+    <li>Draw a rectangle with a width of 400 and a height of 300</li>
+    <li>Draw an equilateral triangle with a side length of 200</li>
+    <li>Draw an pentagon with a side length of 200</li>
+    <li>Draw an hexagon with a side length of 200</li>
+    <li>Draw an heptagon with a side length of 200</li>
+    <li>Draw an octagon with a side length of 200</li>
+    <li>Draw a circle with a radius of 200</li>
+    <li>Draw an oval with a radius of 200</li>
+    <li>Draw a parallelogram with a width of 250 and a height of 400</li>
+    <li>Draw an isosceles triangle with a height of 200 and a width of 100</li>
+    <li>Draw a scalene triangle with a width of 300 and a height of 100</li>
+  </ul>
+</div>
+<form [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <input
+      type="text"
+      formControlName="definition"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.definition.errors }"
+    />
+    <div *ngIf="submitted && f.definition.errors" class="invalid-feedback">
+      <div *ngIf="f.definition.errors.required">
+        Shape definition is required
+      </div>
+    </div>
+  </div>
+  <div class="form-group" style="padding-top: 10px">
+    <button [disabled]="loading" class="btn btn-primary">
+      <span
+        *ngIf="loading"
+        class="spinner-border spinner-border-sm mr-1"
+      ></span>
+      Draw
+    </button>
+    <button
+      type="button"
+      (click)="onReset()"
+      class="btn btn-warning float-right"
+      style="margin-left: 10px"
+    >
+      Clear
+    </button>
+  </div>
+  <div *ngIf="!invalidSearch">{{ errorMessage }}</div>
+  <canvas #canvasEl width="800" height="800"></canvas>
+</form>
